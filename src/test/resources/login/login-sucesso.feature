@@ -1,13 +1,10 @@
 # language: pt
 
 @login
-Funcionalidade: Realizar login com sucesso
-Cenario: Realizar login com sucesso
+Funcionalidade: Acesso ao EstoqueLab
 
-Dado que estou no site Automation Pratice
-    E clico no botao Login da pagina principal
-Quando preencho o campo email com "alissondalbosco@hotmail.com"
-    E preencho o campo senha com "123456"
-
-    E clico no botao Login
-Entao deve ser aberto uma janela popup com a mensagem Login realizado
+  Cenario: Entrar com credenciais de demonstração
+    Dado que estou na página inicial do EstoqueLab
+    Quando informo o usuário "admin" e a senha "123456"
+    E solicito a entrada
+    Então devo visualizar a área de produtos

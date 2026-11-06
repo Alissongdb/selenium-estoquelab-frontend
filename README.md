@@ -2,12 +2,12 @@
 
 # 🛒 Automação Selenium + Java + Cucumber
 
-**Framework de testes automatizados com BDD para a aplicação Automation Pratice (QAzando Shop)**
+**Framework de testes automatizados com BDD para a aplicação EstoqueLab**
 
 <br>
 
-<a href="https://www.automationpratice.com.br/" target="_blank">
-  <img src="https://img.shields.io/badge/🌐_Aplicação-Automation_Pratice-0F172A?style=for-the-badge" alt="Automation Pratice" />
+<a href="https://estoquelab.netlify.app/" target="_blank">
+  <img src="https://img.shields.io/badge/🌐_Aplicação-EstoqueLab-0F172A?style=for-the-badge" alt="EstoqueLab" />
 </a>
 
 <br><br>
@@ -34,7 +34,9 @@ Este repositório contém um **framework de automação de testes web** constru�
 
 Os cenários são escritos em **Gherkin**, em linguagem natural, o que aproxima o time de negócio e o time técnico. Cada passo é ligado a um código Java que controla o navegador e valida o comportamento esperado.
 
-A aplicação testada é o site de demonstração **[Automation Pratice](https://www.automationpratice.com.br/)**, criado para estudo e prática de automação.
+A aplicação testada é o **[EstoqueLab](https://estoquelab.netlify.app/)**, um ambiente educacional para praticar testes de software em um sistema de estoque.
+
+Os cenários cobertos atualmente são o login com as credenciais de demonstração (`admin` / `123456`) e o cadastro de um novo produto. Os testes interagem com a aplicação usando os atributos `name` dos elementos.
 
 ---
 
@@ -58,7 +60,7 @@ A aplicação testada é o site de demonstração **[Automation Pratice](https:/
 | BDD | Cucumber + Gherkin |
 | Gerenciador de build | Maven |
 | Framework de testes | JUnit |
-| Aplicação testada | [Automation Pratice](https://www.automationpratice.com.br/) |
+| Aplicação testada | [EstoqueLab](https://estoquelab.netlify.app/) |
 
 ---
 
@@ -134,7 +136,8 @@ mvn clean install -DskipTests
 |---|---|
 | Executar todos os testes | `mvn test` |
 | Limpar e executar | `mvn clean test` |
-| Executar por tag | `mvn test -Dcucumber.filter.tags="@login"` |
+| Executar cenário de login | `mvn test -Dcucumber.filter.tags="@login"` |
+| Executar cenário de novo produto | `mvn test -Dcucumber.filter.tags="@novo-produto"` |
 | Executar um cenário por nome | `mvn test -Dcucumber.filter.name="Login com credenciais válidas"` |
 
 ---

@@ -7,42 +7,28 @@ import org.junit.Assert;
 
 public class LoginStepDefinition {
 
-    private ManterLogin manterLogin;
+    private final LoginPage loginPage = new LoginPage();
 
-    public LoginStepDefinition() {
-        this.manterLogin = new ManterLogin();
+    @Dado("que estou na página inicial do EstoqueLab")
+    public void queEstouNaPaginaInicialDoEstoqueLab() {
+        Assert.assertTrue(loginPage.paginaInicialVisivel());
     }
 
-    @Dado("que estou no site Automation Pratice")
-    public void que_estou_no_site_automation_pratice() {
+    @Quando("informo o usuário {string} e a senha {string}")
+    public void informoUsuarioESenha(String usuario, String senha) {
+        loginPage.informarCredenciais(usuario, senha);
     }
 
-    @Dado("clico no botao Login da pagina principal")
-    public void clico_no_botao_login_da_pagina_principal() {
-        manterLogin.clicarBotaoLogin();
+    @Quando("solicito a entrada")
+    public void solicitoEntrada() {
+        loginPage.solicitarEntrada();
     }
 
-    @Quando("preencho o campo email com {string}")
-    public void preencho_o_campo_email_com(String email) {
-        manterLogin.informarLogin("alissondalbosco@hotmail.com");
-    }
-
-    @Quando("preencho o campo senha com {string}")
-    public void preencho_o_campo_senha_com(String senha) {
-        manterLogin.informarSenha("123456");
-    }
-
-    @Quando("clico no botao Login")
-    public void clico_no_botao_login() {
-        manterLogin.clicarBtnLogin();
-    }
-
-    @Entao("deve ser aberto uma janela popup com a mensagem Login realizado")
-    public void deve_ser_aberto_uma_janela_popup_com_a_mensagem_login_realizado() {
+    @Entao("devo visualizar a área de produtos")
+    public void devoVisualizarAreaDeProdutos() {
         Assert.assertTrue(
-                "Login realizado\n" +
-                        "Olá, alissondalbosco@hotmail.com",
-                manterLogin.loginRealizadoComSucesso()
+                "A área de produtos não foi exibida após o login.",
+                loginPage.areaDeProdutosVisivel()
         );
     }
 }
