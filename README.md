@@ -2,7 +2,7 @@
 
 # 🛒 Automação Selenium + Java + Cucumber
 
-**Framework de testes automatizados com BDD para a aplicação EstoqueLab**
+**Projeto de treinamento de automação de testes para o EstoqueLab**
 
 <br>
 
@@ -30,13 +30,11 @@
 
 ## 📌 Sobre o projeto
 
-Este repositório contém um **framework de automação de testes web** construído com **Java**, **Selenium WebDriver** e **Cucumber**, seguindo a abordagem **BDD (Behavior Driven Development)**.
+Este projeto tem como objetivo praticar automação de testes web de ponta a ponta no **[EstoqueLab](https://estoquelab.netlify.app/)**, um sistema educacional de estoque criado para treinamento de QA. Os testes usam **Java**, **Selenium WebDriver**, **Cucumber** e a abordagem **BDD (Behavior Driven Development)**.
 
-Os cenários são escritos em **Gherkin**, em linguagem natural, o que aproxima o time de negócio e o time técnico. Cada passo é ligado a um código Java que controla o navegador e valida o comportamento esperado.
+Os cenários são escritos em **Gherkin** e executados no navegador pelo Selenium. Os seletores dos fluxos usam atributos `name`, facilitando a prática com elementos identificados de forma explícita.
 
-A aplicação testada é o **[EstoqueLab](https://estoquelab.netlify.app/)**, um ambiente educacional para praticar testes de software em um sistema de estoque.
-
-Os cenários cobertos atualmente são o login com as credenciais de demonstração (`admin` / `123456`) e o cadastro de um novo produto. Os testes interagem com a aplicação usando os atributos `name` dos elementos.
+Atualmente, o projeto cobre o login com as credenciais de demonstração (`admin` / `123456`) e o cadastro de um produto. O EstoqueLab é um ambiente de simulação: os dados são temporários e devem ser fictícios.
 
 ---
 
@@ -66,37 +64,36 @@ Os cenários cobertos atualmente são o login com as credenciais de demonstraç�
 
 ## 📁 Estrutura do projeto
 
-> Ajuste os nomes conforme a organização real do seu repositório.
-
 ```
 .
 ├── src
 │   └── test
 │       ├── java
-│       │   ├── pages/        # Page Objects (mapeamento das telas)
-│       │   ├── steps/        # Step Definitions (código dos passos)
-│       │   └── runner/       # Classe que executa o Cucumber
+│       │   ├── login/        # Página, passos e runner do Cucumber
+│       │   ├── produto/      # Página e passos do cadastro de produtos
+│       │   └── utils/        # Driver do navegador e hooks
 │       └── resources
-│           └── features/     # Arquivos .feature (cenários em Gherkin)
-└── pom.xml                   # Dependências e configuração do Maven
+│           ├── login/        # Cenários de login em Gherkin
+│           └── produto/      # Cenários de produto em Gherkin
+└── pom.xml                   # Dependências e configuração do projeto
 ```
 
 ---
 
-## 🥒 Exemplo de cenário
+## 🥒 Cenários automatizados
 
 ```gherkin
 # language: pt
-Funcionalidade: Login
+Funcionalidade: Cadastro de produtos no EstoqueLab
 
-  Cenário: Login com credenciais válidas
-    Dado que estou na página de login
-    Quando informo e-mail e senha válidos
-    E clico no botão de login
-    Então devo ver a mensagem de login realizado com sucesso
+  Cenario: Cadastrar um novo produto
+    Dado que estou autenticado no EstoqueLab com usuário "admin" e senha "123456"
+    E que acesso o formulário de novo produto
+    Quando informo o produto "Caderno QA", SKU "QAT-001" e categoria "Livros"
+    E informo o preço "19,90" e o estoque "25"
+    E salvo o produto
+    Então o produto "Caderno QA" deve aparecer na lista
 ```
-
-> Troque este exemplo por um cenário real do seu projeto.
 
 ---
 
@@ -106,11 +103,11 @@ Funcionalidade: Login
 
 Antes de começar, tenha instalado:
 
-- ☕ [JDK](https://adoptium.net/) 11 ou superior
+- ☕ [JDK](https://adoptium.net/) 21 ou superior
 - 📦 [Maven](https://maven.apache.org/)
-- 🌐 Google Chrome (ou o navegador configurado no projeto)
+- 🌐 Google Chrome
 
-Confira se está tudo certo:
+Confira as instalações:
 
 ```bash
 java -version
@@ -121,24 +118,24 @@ mvn -version
 
 ```bash
 # Clone o repositório
-git clone https://github.com/Alissongdb/selenium-qazandoShop.git
+git clone https://github.com/Alissongdb/selenium-automationpratice-frontend.git
 
 # Entre na pasta do projeto
-cd selenium-qazandoShop
+cd selenium-automationpratice-frontend
 
-# Baixe as dependências
-mvn clean install -DskipTests
+# Execute os cenários
+mvn test
 ```
 
 ### Rodando os testes
 
 | Objetivo | Comando |
 |---|---|
-| Executar todos os testes | `mvn test` |
+| Executar todos os cenários | `mvn test` |
 | Limpar e executar | `mvn clean test` |
 | Executar cenário de login | `mvn test -Dcucumber.filter.tags="@login"` |
 | Executar cenário de novo produto | `mvn test -Dcucumber.filter.tags="@novo-produto"` |
-| Executar um cenário por nome | `mvn test -Dcucumber.filter.name="Login com credenciais válidas"` |
+| Executar um cenário por nome | `mvn test -Dcucumber.filter.name="Cadastrar um novo produto"` |
 
 ---
 
@@ -152,7 +149,7 @@ Ao final da execução, o Cucumber gera um relatório com o resultado de cada ce
 
 - [ ] Integrar a execução ao **GitHub Actions** (CI/CD)
 - [ ] Adicionar **screenshots automáticos** em caso de falha
-- [ ] Ampliar a cobertura com novos fluxos da loja
+- [ ] Ampliar a cobertura com novos fluxos de estoque
 - [ ] Executar em **modo headless** na pipeline
 
 ---
